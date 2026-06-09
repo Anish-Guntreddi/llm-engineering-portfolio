@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import sys
 from pathlib import Path
 
 from workflowlm.eval.metrics import HIGHER_IS_BETTER, METRIC_NAMES
@@ -21,6 +22,13 @@ def main() -> None:
     ap.add_argument("--base", default="base")
     ap.add_argument("--finetuned", default="finetuned")
     args = ap.parse_args()
+
+    # Windows consoles default to cp1252; the report prints ✅/Δ — force utf-8 so the
+    # process never crashes on a non-ASCII char after the files are already written.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
     base = read_summary(args.results_dir / f"{args.base}_summary.csv")
     ft = read_summary(args.results_dir / f"{args.finetuned}_summary.csv")

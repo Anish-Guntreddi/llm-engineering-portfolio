@@ -143,6 +143,7 @@ def main() -> None:
         eval_dataset=val_ds,
         peft_config=lora,
         data_collator=collator,
+        processing_class=tokenizer,
     )
 
     trainer.train()
