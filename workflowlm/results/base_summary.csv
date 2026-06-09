@@ -1,0 +1,2 @@
+tag,n,json_valid,schema_pass,category_acc,trigger_acc,system_f1,step_completeness,hallucination
+base,72,0.9722,0.7778,0.7639,0.0139,0.3034,0.4365,0.3472

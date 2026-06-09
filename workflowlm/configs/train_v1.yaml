@@ -1,0 +1,53 @@
+# WorkflowLM training/eval config — version v1
+# Every training and eval run is driven by this file so runs are reproducible and diffable.
+version: v1
+seed: 7
+
+model:
+  base: Qwen/Qwen2.5-1.5B-Instruct
+  max_seq_len: 1024
+
+data:
+  train: data/train.jsonl
+  val: data/val.jsonl
+  test: data/test.jsonl
+
+qlora:
+  # 4-bit NF4 quantization — fits comfortably on a 24GB RTX 4090.
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_compute_dtype: bfloat16
+  bnb_4bit_use_double_quant: true
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+
+train:
+  output_dir: outputs/workflowlm-qlora-v1
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 4   # effective batch = 16
+  learning_rate: 2.0e-4
+  lr_scheduler_type: cosine
+  warmup_ratio: 0.03
+  weight_decay: 0.0
+  logging_steps: 10
+  save_strategy: epoch
+  eval_strategy: epoch
+  bf16: true
+  gradient_checkpointing: true
+  max_grad_norm: 0.3
+  optim: paged_adamw_8bit
+
+generation:
+  max_new_tokens: 768
+  do_sample: false            # greedy for deterministic, comparable eval
+  temperature: 0.0
+
+# --- VRAM knobs (turn these if you have less than 24GB) ---
+# per_device_train_batch_size: 2 / 1
+# gradient_accumulation_steps: 8 / 16  (keep effective batch ~16)
+# max_seq_len: 768
+# lora_r: 8
+# gradient_checkpointing: true (already on)

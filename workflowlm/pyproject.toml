@@ -1,0 +1,47 @@
+[project]
+name = "workflowlm"
+version = "0.1.0"
+description = "QLoRA fine-tuning to convert NL business processes into schema-validated JSON workflow plans"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "pydantic>=2.6,<3",
+    "pyyaml>=6.0",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pandas>=2.0",
+]
+
+[project.optional-dependencies]
+# Heavy ML stack — installed separately so dataset/schema/eval-scoring work without a GPU.
+# Pinned to a verified-compatible combo (Windows + CUDA 12.4, RTX 4090). transformers 5.x /
+# trl 1.x are NOT yet compatible for this QLoRA setup — do not bump blindly.
+# Install torch from the CUDA index first:
+#   uv pip install torch --index-url https://download.pytorch.org/whl/cu124
+train = [
+    "torch==2.6.0",
+    "transformers==4.46.3",
+    "peft==0.14.0",
+    "trl==0.12.2",
+    "datasets==3.2.0",
+    "accelerate==1.2.1",
+    "bitsandbytes==0.49.2; platform_system != 'Darwin'",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/workflowlm"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
