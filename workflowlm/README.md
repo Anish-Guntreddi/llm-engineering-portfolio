@@ -1,4 +1,3 @@
-<!-- RESULTS_TABLE_PLACEHOLDER will be replaced after eval -->
 # WorkflowLM
 
 **Fine-tune a small open instruct model (Qwen2.5-1.5B-Instruct, QLoRA) to convert messy
@@ -36,12 +35,31 @@ learn, (2) a self-validating dataset, and (3) an honest before/after evaluation.
 
 ## Results
 
-<!-- RESULTS_TABLE -->
-*(Populated by `python -m workflowlm.eval.report` after running baseline and fine-tuned evals —
-see [results/report.md](results/report.md).)*
+Base `Qwen/Qwen2.5-1.5B-Instruct` vs the QLoRA fine-tune, on a held-out **72-example** test set
+(stratified across all 8 categories, never seen during training). Greedy decoding for both;
+every metric computed by the **same** validator used for data generation and serving.
 
-Metrics (all computed by the **same** `parse_and_validate` used for data generation and serving,
-greedy decoding for both models so the comparison is apples-to-apples):
+| Metric | Base | Fine-tuned | Δ | Better when |
+|---|---|---|---|---|
+| `json_valid` | 0.972 | **1.000** | +0.028 ✅ | higher |
+| `schema_pass` | 0.778 | **0.931** | +0.153 ✅ | higher |
+| `category_acc` | 0.764 | **1.000** | +0.236 ✅ | higher |
+| `trigger_acc` | 0.014 | **0.417** | +0.403 ✅ | higher |
+| `system_f1` | 0.303 | **0.461** | +0.158 ✅ | higher |
+| `step_completeness` | 0.436 | **0.589** | +0.153 ✅ | higher |
+| `hallucination` | 0.347 | **0.069** | −0.278 ✅ | lower |
+
+**The fine-tune wins on every metric.** The interesting part is *where*: the base model already
+emits valid JSON (0.97), so the gains are in the things that actually require learning our schema
+— it nails category classification (1.00), goes from ~never producing a correct trigger (0.01) to
+0.42, and cuts hallucinated/undeclared systems by **5×** (0.35 → 0.07). This is the expected shape
+for a small-model schema fine-tune: validity was never the problem, *consistency* was.
+
+Reproduced numbers live in [results/report.md](results/report.md) and
+[results/comparison.csv](results/comparison.csv); per-example predictions and scores are in
+`results/{base,finetuned}_raw.jsonl`.
+
+Metric definitions:
 
 | Metric | Meaning |
 |---|---|

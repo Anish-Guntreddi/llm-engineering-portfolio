@@ -1,0 +1,2 @@
+tag,n,json_valid,schema_pass,category_acc,trigger_acc,system_f1,step_completeness,hallucination
+finetuned,72,1.0,0.9306,1.0,0.4167,0.4611,0.5892,0.0694
