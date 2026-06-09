@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# ML artifacts (heavy / regenerable)
+*.bin
+*.safetensors
+*.gguf
+*.pt
+*.pth
+models/
+checkpoints/
+outputs/
+adapters/
+hf_cache/
+wandb/
+.cache/
+
+# Datasets: keep curated/generated JSONL, ignore raw scratch
+**/data/scratch/
+**/data/raw/
+
+# Node
+node_modules/
+.next/
+dist/
+build/
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Eval artifacts that are large; keep small CSV/markdown reports
+**/results/**/*.jsonl
+!**/results/**/summary*.csv
+!**/results/**/report*.md
