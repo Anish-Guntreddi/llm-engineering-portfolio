@@ -1,0 +1,2 @@
+tag,n,syntax_pass,imports_ok,structure_pass,risk_logic_present,unit_tests_pass,latency_s,tokens_per_sec
+finetuned,54,1.0,1.0,1.0,1.0,0.9259,5.507,55.1
