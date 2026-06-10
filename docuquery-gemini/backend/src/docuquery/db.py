@@ -192,7 +192,7 @@ def get_store(dim: int | None = None) -> VectorStore:
         return _STORE
     s = get_settings()
     if s.database_url:
-        if dim is None:
+        if not dim:  # None or 0 (provider dim is only known after the first embed)
             from docuquery.providers.embeddings import get_embedding_provider
 
             prov = get_embedding_provider()
