@@ -1,0 +1,102 @@
+{
+  "n_questions": 10,
+  "k": 5,
+  "recall_at_k": 1.0,
+  "mrr": 0.95,
+  "citation_accuracy": 1.0,
+  "faithfulness": 1.0,
+  "abstention_correct": true,
+  "provider_note": "lexical faithfulness proxy; LLM-judge path available with a Gemini key",
+  "per_question": [
+    {
+      "q": "What index does pgvector use to speed up search and what is a typical number of lists?",
+      "expected": "vectordb_guide.md p.2",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "The ivfflat index speeds up search by clustering vectors into lists; a typical starting value is 100 lists. [1] It supports exact and approximate nearest-neighb"
+    },
+    {
+      "q": "What similarity metric is most common for normalized text embeddings?",
+      "expected": "vectordb_guide.md p.3",
+      "in_topk": true,
+      "rank": 2,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "Cosine similarity measures the angle between two vectors and is the most common metric for normalized text embeddings. [2] Vector databases store high-dimension"
+    },
+    {
+      "q": "What is an embedding?",
+      "expected": "vectordb_guide.md p.1",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "An embedding is a dense numeric representation of text produced by a model. [1] Gemini text-embedding-004 produces 768-dimensional embeddings and is accessed th"
+    },
+    {
+      "q": "How does RAG reduce hallucination?",
+      "expected": "rag_handbook.md p.1",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "Retrieval-augmented generation (RAG) combines a retriever with a generator. [1] The retriever finds relevant context chunks; the generator answers using only th"
+    },
+    {
+      "q": "What overlap is recommended when chunking documents?",
+      "expected": "rag_handbook.md p.2",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "Chunking splits documents into overlapping windows. [1] Overlap of roughly 10-20 percent of the chunk size preserves context across boundaries. [1] A good RAG s"
+    },
+    {
+      "q": "What does faithfulness measure in a RAG system?",
+      "expected": "rag_handbook.md p.3",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "A good RAG system abstains when retrieval confidence is low. [1] Faithfulness measures whether an answer is supported by the retrieved context. [1] Retrieval-au"
+    },
+    {
+      "q": "How many dimensions does all-MiniLM-L6-v2 produce?",
+      "expected": "embeddings_notes.md p.1",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "The all-MiniLM-L6-v2 model produces 384-dimensional sentence embeddings and is a fast, strong baseline for semantic search. [1]"
+    },
+    {
+      "q": "How many dimensions does Gemini text-embedding-004 produce?",
+      "expected": "embeddings_notes.md p.2",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "Gemini text-embedding-004 produces 768-dimensional embeddings and is accessed through the Google Generative AI API. [1] An embedding is a dense numeric represen"
+    },
+    {
+      "q": "What does recall at k measure?",
+      "expected": "embeddings_notes.md p.3",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "Recall at k is the fraction of queries whose relevant document appears in the top k results. [1] Smaller chunks improve precision; larger chunks improve recall "
+    },
+    {
+      "q": "What is HNSW?",
+      "expected": "vectordb_guide.md p.3",
+      "in_topk": true,
+      "rank": 1,
+      "abstained": false,
+      "faithfulness": 1.0,
+      "answer": "HNSW is an alternative index that trades memory for very fast approximate search. [1]"
+    }
+  ]
+}
