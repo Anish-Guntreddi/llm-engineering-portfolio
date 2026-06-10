@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     # Storage: if unset, the in-memory vector store is used (tests / no-docker).
     database_url: str | None = None
 
+    # Extra CORS origins (comma-separated) for the deployed frontend, e.g. your Vercel domain.
+    cors_origins: str = "http://localhost:3000,http://127.0.0.1:3000"
+
     # Providers. Gemini is used iff a key is present; otherwise local fallbacks.
     gemini_api_key: str | None = None
     embedding_model_local: str = "sentence-transformers/all-MiniLM-L6-v2"

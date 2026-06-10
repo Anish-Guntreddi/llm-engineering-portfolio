@@ -28,7 +28,7 @@ from docuquery.providers.llm import get_llm_provider
 app = FastAPI(title="DocuQuery-Gemini", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=[o.strip() for o in get_settings().cors_origins.split(",") if o.strip()],
     allow_methods=["*"],
     allow_headers=["*"],
 )
