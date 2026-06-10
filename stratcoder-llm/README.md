@@ -43,11 +43,31 @@ stage.
 
 ## Results
 
-<!-- RESULTS_TABLE -->
-*(Populated by `python -m stratcoder.eval.report` — see [results/report.md](results/report.md).)*
+Base `Qwen/Qwen2.5-Coder-1.5B-Instruct` vs the QLoRA fine-tune, on a held-out **54-example** test
+set (stratified across all 6 families, unseen in training). Every generation validated by the
+**same** pipeline used for data generation and serving; greedy decoding for both.
 
-Metrics (each generation validated by the **same** pipeline used for data + serving; greedy
-decoding for both models):
+| Metric | Base | Fine-tuned | Δ |
+|---|---|---|---|
+| `syntax_pass` | 0.926 | **1.000** | +0.074 ✅ |
+| `imports_ok` | 0.667 | **1.000** | +0.333 ✅ |
+| `structure_pass` | 0.593 | **1.000** | +0.407 ✅ |
+| `risk_logic_present` | 0.593 | **1.000** | +0.407 ✅ |
+| **`unit_tests_pass`** | **0.000** | **0.926** | **+0.926** ✅ |
+| `latency_s` (informational) | 11.69 | 5.51 | — |
+| `tokens_per_sec` | 55.8 | 55.1 | — |
+
+**The headline:** the base model writes plausible Python (0.93 syntax) but **never** (0.00)
+produces code matching our exact `Strategy` contract that passes the sandboxed unit tests — it
+doesn't know our method signatures or candle format, and a third of the time imports disallowed
+libraries. The fine-tune gets **imports, structure, and risk logic to 100%** and passes the
+sandboxed tests **92.6%** of the time, while also halving latency (tighter, on-contract output).
+
+Reproduced numbers in [results/report.md](results/report.md) /
+[results/comparison.csv](results/comparison.csv); per-example code + validation reports in
+`results/{base,finetuned}_raw.jsonl`.
+
+Metric meanings:
 
 | Metric | Meaning |
 |---|---|

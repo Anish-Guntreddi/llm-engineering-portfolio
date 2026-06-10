@@ -92,6 +92,10 @@ def check_static(code: str) -> StaticResult:
         if isinstance(node, ast.Attribute) and node.attr.startswith("__") and node.attr.endswith("__"):
             if node.attr not in ("__init__", "__name__"):
                 forbidden.append(StaticIssue("dunder_access", f"access to '{node.attr}' is not allowed"))
+        # block dunders hidden in string literals (closes the str.format attribute-walk escape,
+        # e.g. "{0.__class__.__bases__}".format(obj)) and any getattr-by-string trickery.
+        if isinstance(node, ast.Constant) and isinstance(node.value, str) and "__" in node.value:
+            forbidden.append(StaticIssue("dunder_in_string", "string literals may not contain '__'"))
     if forbidden:
         return StaticResult(False, "forbidden", forbidden, imports=imports)
 

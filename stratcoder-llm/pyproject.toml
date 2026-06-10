@@ -22,7 +22,7 @@ train = [
     "accelerate==1.2.1",
     "bitsandbytes==0.49.2; platform_system != 'Darwin'",
 ]
-dev = ["pytest>=8.0", "ruff>=0.5"]
+dev = ["pytest>=8.0", "ruff>=0.5", "httpx>=0.27"]
 
 [build-system]
 requires = ["hatchling"]

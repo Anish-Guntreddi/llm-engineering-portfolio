@@ -84,6 +84,17 @@ def main() -> int:
         except Exception:  # noqa: BLE001 - a module that won't import just stays unavailable
             pass
 
+    # Hard resource caps where the OS supports them (POSIX). On Windows there is no `resource`
+    # module, so the subprocess timeout is the bound (see SECURITY.md finding 9).
+    try:
+        import resource  # noqa: PLC0415  (POSIX-only)
+
+        _512MB = 512 * 1024 * 1024
+        resource.setrlimit(resource.RLIMIT_AS, (_512MB, _512MB))
+        resource.setrlimit(resource.RLIMIT_CPU, (5, 5))
+    except Exception:  # noqa: BLE001 - Windows or restricted env: rely on the subprocess timeout
+        pass
+
     # Install the second-line import blocker for the candidate execution.
     sys.meta_path.insert(0, _ImportBlocker())
 

@@ -80,3 +80,15 @@ def test_infinite_loop_times_out():
 def test_static_passes_clean_code():
     res = check_static(GOOD)
     assert res.passed and res.stage == "static"
+
+
+def test_format_string_attribute_escape_blocked():
+    # Classic pure-Python sandbox escape via str.format walking attributes.
+    code = ("class Strategy:\n"
+            " def generate_signal(self, c):\n"
+            "  return '{0.__class__}'.format(c)\n"
+            " def position_size(self, e, p): return 1.0\n"
+            " def stop_loss(self, e): return e*0.9\n"
+            " def should_exit(self, c, e): return False\n")
+    r = run_validation(code, timeout_s=4)
+    assert not r.valid and r.static["stage"] == "forbidden"
