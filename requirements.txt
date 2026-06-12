@@ -1,0 +1,4 @@
+# Streamlit Community Cloud installs from this file (repo root).
+# The dashboard only reads committed result files — no torch/models needed.
+streamlit>=1.40
+pandas>=2.0

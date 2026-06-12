@@ -15,6 +15,21 @@ evaluation — no hand-wavy claims.
 All four are complete and merged to `master`, each on its own development branch with a
 portfolio-ready README.
 
+## 📊 Live metrics dashboard
+
+A **Streamlit** dashboard ([`streamlit_app.py`](./streamlit_app.py)) visualizes every project's
+real metrics, architecture, and training recipe — deployable free on
+[Streamlit Community Cloud](https://streamlit.io/cloud).
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py
+```
+
+**Deploy on Streamlit Community Cloud:** sign in at share.streamlit.io with this GitHub account →
+*New app* → pick this repo, branch `master`, main file `streamlit_app.py` → Deploy. It needs no
+GPU or API keys — it reads the committed result files (`*/results/*.csv|json|png`).
+
 ## What each one demonstrates
 
 - **WorkflowLM** — real fine-tuning skill: a schema a 1.5B model can actually learn, a
