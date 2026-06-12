@@ -1,0 +1,40 @@
+[project]
+name = "adaptbench"
+version = "0.1.0"
+description = "A fair, reproducible benchmark: base vs RAG vs fine-tuned vs hybrid on one domain"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "pyyaml>=6.0",
+    "numpy>=1.26",
+    "pandas>=2.0",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+# Model + retrieval stack (pinned to the WorkflowLM-verified combo). Install torch from the
+# CUDA index first, then:  uv pip install -e ../workflowlm   (reuses Phase 1's scorers/adapter)
+run = [
+    "torch==2.6.0",
+    "transformers==4.46.3",
+    "peft==0.14.0",
+    "accelerate==1.2.1",
+    "bitsandbytes==0.49.2; platform_system != 'Darwin'",
+    "sentence-transformers>=3.0",
+]
+gemini = ["google-generativeai>=0.7"]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/adaptbench"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
