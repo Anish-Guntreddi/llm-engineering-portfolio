@@ -1,0 +1,20 @@
+# AdaptBench-LLM config — version v1
+version: v1
+seed: 7
+
+base_model: Qwen/Qwen2.5-1.5B-Instruct
+adapter: ../workflowlm/outputs/workflowlm-qlora-v1   # reused from Phase 1
+
+# Reused WorkflowLM data: train = RAG corpus, test = benchmark set
+train_path: ../workflowlm/data/train.jsonl
+test_path: ../workflowlm/data/test.jsonl
+
+retrieval:
+  embed_model: sentence-transformers/all-MiniLM-L6-v2
+  k: 3                       # few-shot examples for the RAG systems
+
+results_dir: results
+cache_path: results/generations_cache.json
+
+# Gemini systems are added automatically if GEMINI_API_KEY (env) is set.
+gemini_chat_model: models/gemini-1.5-flash
