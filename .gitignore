@@ -43,3 +43,6 @@ Thumbs.db
 **/results/**/*.jsonl
 !**/results/**/summary*.csv
 !**/results/**/report*.md
+
+# Regenerable benchmark generation cache
+**/results/generations_cache.json
