@@ -17,9 +17,15 @@ portfolio-ready README.
 
 ## 📊 Live metrics dashboard
 
-A **Streamlit** dashboard ([`streamlit_app.py`](./streamlit_app.py)) visualizes every project's
-real metrics, architecture, and training recipe — deployable free on
+A custom-themed **Streamlit** dashboard ([`streamlit_app.py`](./streamlit_app.py)) visualizes every
+project's real metrics, architecture, and training recipe — deployable free on
 [Streamlit Community Cloud](https://streamlit.io/cloud).
+
+![Dashboard preview](./docs/dashboard-preview.png)
+
+Design is a deliberate "instrument-panel" system — monospace `Fira Code` for metrics/labels,
+numbered section spines, hairline rules, custom comparison bars and a results matrix, SVG icons
+(no emoji), and a single accent color story.
 
 ```bash
 pip install -r requirements.txt
