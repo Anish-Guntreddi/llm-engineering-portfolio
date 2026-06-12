@@ -35,12 +35,38 @@ Enforced in code, not just claimed:
 
 ## Results
 
-<!-- RESULTS -->
-*(Populated by `python -m adaptbench.report` after a run — see [results/report.md](results/report.md)
-and the charts `results/chart_quality.png`, `results/chart_composite.png`.)*
+72-example held-out test set, greedy decoding, metrics from `workflowlm.eval.metrics`
+(`hallucination` lower is better). `*` = best on that metric. Full report:
+[results/report.md](results/report.md); charts:
+[chart_quality.png](results/chart_quality.png), [chart_composite.png](results/chart_composite.png).
 
-Metrics are WorkflowLM's: `json_valid`, `schema_pass`, `category_acc`, `trigger_acc`, `system_f1`,
-`step_completeness`, `hallucination` (lower better), plus `latency_s`.
+| System | json_valid | schema_pass | category_acc | trigger_acc | system_f1 | step_completeness | hallucination | latency_s |
+|---|---|---|---|---|---|---|---|---|
+| `base` | 0.972 | 0.778 | 0.764 | 0.014 | 0.303 | 0.436 | 0.347 | 7.22 |
+| `rag` | **1.000** | **0.972** | 0.986 | 0.389 | 0.454 | 0.589 | 0.069 | 6.14 |
+| `finetuned` | 1.000 | 0.931 | **1.000** | **0.417** | **0.461** | **0.589** | 0.069 | **4.94** |
+| `finetuned_rag` | 1.000 | 0.972 | 1.000 | 0.417 | 0.440 | 0.588 | **0.014** | 7.03 |
+
+### When to use which (the finding)
+
+- **Both adaptation methods close ~the same gap from base.** Fine-tuning lifts the composite
+  quality score by **+0.201**; few-shot RAG (retrieving from the *same* train data) lifts it by
+  **+0.200**. For this structured-JSON task at 1.5B, **in-context examples are about as effective
+  as a weight update** — a genuinely non-obvious result, and the reason the fairness controls
+  matter (RAG and FT draw on identical knowledge, so this is a clean mechanism comparison).
+- **Fine-tuning is also the fastest and most accurate on the field-level metrics** (category,
+  trigger, system_f1) and emits the tightest output (**4.9 s** vs base's 7.2 s) — once the schema
+  is in the weights the model stops rambling.
+- **RAG-only is the best "no-training" option**, edging fine-tuning on raw `schema_pass` (0.972 vs
+  0.931) with zero training cost — attractive when you can't or won't fine-tune.
+- **The hybrid wins overall but only by a hair** (+0.011 composite over the best single method),
+  almost entirely from the **lowest hallucination rate (0.014)**. So: if you've already
+  fine-tuned, adding RAG buys mainly a hallucination reduction, not a big accuracy jump — often not
+  worth the extra retrieval latency (7.0 s vs 4.9 s) unless hallucination is your top concern.
+
+_Caveats: one 1.5B base model, one domain, 72 test examples, greedy decoding, few-shot k=3.
+Scoped to this regime, not a universal claim — which is exactly why the harness is built to be
+re-run on other models/domains by swapping the config._
 
 ## Reproduce
 
