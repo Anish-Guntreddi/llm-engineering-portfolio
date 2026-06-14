@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Engineering Portfolio — Anish Guntreddi</title>
+<meta name="description" content="Four end-to-end LLM systems: QLoRA fine-tuning, a hardened code sandbox, full-stack RAG with citations, and a fair fine-tuning-vs-RAG benchmark. Real metrics, reproducible on one RTX 4090.">
+<meta property="og:title" content="LLM Engineering Portfolio — Anish Guntreddi">
+<meta property="og:description" content="QLoRA fine-tuning · RAG with citations · a fair fine-tuning-vs-RAG benchmark. Real, measured results.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%230A0E16'/%3E%3Crect x='6' y='6' width='5' height='5' rx='1' fill='%234D8DFF'/%3E%3Crect x='13' y='13' width='5' height='5' rx='1' fill='%234D8DFF'/%3E%3Cpath d='M11 8.5h2a1.5 1.5 0 0 1 1.5 1.5v3.5' stroke='%239AA8BE' stroke-width='1.3' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="dot" aria-hidden="true"></span>LLM&nbsp;PORTFOLIO</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#projects">Projects</a>
+      <a href="#benchmark">Benchmark</a>
+      <a href="#method">Methodology</a>
+      <a class="nav-cta" href="https://github.com/Anish-Guntreddi/llm-engineering-portfolio" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<!-- ============================== HERO ============================== -->
+<section class="hero">
+  <div class="wrap reveal">
+    <span class="eyebrow">LLM ENGINEERING · PORTFOLIO</span>
+    <h1>Fine-tuning, retrieval &amp;<br><span class="accent">rigorous evaluation.</span></h1>
+    <p class="lede">Four end-to-end LLM systems — two QLoRA fine-tunes, a hardened code-execution
+      sandbox, a full-stack RAG app with citation traceability, and a fair fine-tuning-vs-RAG
+      benchmark. Built solo, measured honestly, fully reproducible on one consumer GPU.</p>
+    <div class="hero-cta">
+      <a class="btn primary" href="#projects">Explore the work</a>
+      <a class="btn" href="https://github.com/Anish-Guntreddi/llm-engineering-portfolio" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.7.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5Z"/></svg>
+        View source
+      </a>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="v">4</div><div class="l">projects</div><div class="s">all complete</div></div>
+      <div class="kpi"><div class="v">2</div><div class="l">models fine-tuned</div><div class="s">QLoRA · 1.5B</div></div>
+      <div class="kpi"><div class="v">+0.93</div><div class="l">best FT lift</div><div class="s">unit-test pass</div></div>
+      <div class="kpi"><div class="v">RTX 4090</div><div class="l">hardware</div><div class="s">24&nbsp;GB · local</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== PROJECTS ============================== -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">01</span><h2>The systems</h2><span class="sec-rule"></span></div>
+    <p class="sec-sub reveal">Each project ships a real before/after or head-to-head evaluation. Bars
+      compare the <strong>base model</strong> against the <strong>fine-tune</strong> on a held-out test set.</p>
+
+    <!-- WorkflowLM -->
+    <article class="proj reveal">
+      <div class="proj-top">
+        <div class="proj-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M9 6h6a2 2 0 0 1 2 2v7"/></svg></div>
+        <div>
+          <div class="proj-tag">Project 01 · Fine-tuning</div>
+          <div class="proj-h">WorkflowLM</div>
+        </div>
+      </div>
+      <p class="proj-desc">A QLoRA fine-tune of <strong>Qwen2.5-1.5B-Instruct</strong> that turns messy
+        natural-language business processes into <strong>schema-validated JSON workflow plans</strong>. One
+        Pydantic validator is the single source of truth for data generation, evaluation, and serving.</p>
+      <div class="chips"><span class="chip">Qwen2.5-1.5B</span><span class="chip">QLoRA · 4-bit NF4</span><span class="chip">PEFT / TRL</span><span class="chip">Pydantic</span><span class="chip">FastAPI</span></div>
+      <div class="proj-grid">
+        <div>
+          <div class="mini-h">Base → fine-tuned · 72-example test</div>
+          <div class="bars">
+            <div class="legend"><span><span class="sw" style="background:var(--slate)"></span>base</span><span><span class="sw" style="background:var(--accent)"></span>fine-tuned</span></div>
+            <!-- bars injected by template below -->
+            <div class="bar"><div class="bar-l">schema_pass</div><div class="tracks"><div class="track"><div class="fill base" data-w="78"></div></div><div class="track"><div class="fill ft" data-w="93"></div></div></div><div class="bar-v"><span class="b">0.78</span> <span class="f">0.93</span><br><span class="d up">+0.15</span></div></div>
+            <div class="bar"><div class="bar-l">category_acc</div><div class="tracks"><div class="track"><div class="fill base" data-w="76"></div></div><div class="track"><div class="fill ft" data-w="100"></div></div></div><div class="bar-v"><span class="b">0.76</span> <span class="f">1.00</span><br><span class="d up">+0.24</span></div></div>
+            <div class="bar"><div class="bar-l">trigger_acc</div><div class="tracks"><div class="track"><div class="fill base" data-w="1"></div></div><div class="track"><div class="fill ft" data-w="42"></div></div></div><div class="bar-v"><span class="b">0.01</span> <span class="f">0.42</span><br><span class="d up">+0.40</span></div></div>
+            <div class="bar"><div class="bar-l">system_f1</div><div class="tracks"><div class="track"><div class="fill base" data-w="30"></div></div><div class="track"><div class="fill ft" data-w="46"></div></div></div><div class="bar-v"><span class="b">0.30</span> <span class="f">0.46</span><br><span class="d up">+0.16</span></div></div>
+            <div class="bar"><div class="bar-l">step_complete</div><div class="tracks"><div class="track"><div class="fill base" data-w="44"></div></div><div class="track"><div class="fill ft" data-w="59"></div></div></div><div class="bar-v"><span class="b">0.44</span> <span class="f">0.59</span><br><span class="d up">+0.15</span></div></div>
+            <div class="bar"><div class="bar-l">hallucination ↓</div><div class="tracks"><div class="track"><div class="fill base" data-w="35"></div></div><div class="track"><div class="fill ft" data-w="7"></div></div></div><div class="bar-v"><span class="b">0.35</span> <span class="f">0.07</span><br><span class="d up">−0.28</span></div></div>
+          </div>
+        </div>
+        <div class="arch">
+          <div class="mini-h">Architecture &amp; recipe</div>
+          <p><strong>Self-validating data:</strong> parametric generators produce candidates; every output
+            is validated against the schema before acceptance, then a stratified leak-free split (360/48/72).
+            480 examples across 8 workflow categories.</p>
+          <p style="margin-top:.6rem"><strong>Training:</strong> QLoRA — 4-bit NF4, LoRA r=16/α=32 on attention
+            + MLP, 3 epochs, lr 2e-4 cosine, completion-only loss masking, paged 8-bit AdamW, fixed seed.</p>
+          <div class="note">The base model already emits valid JSON (0.97). The win is <strong>schema
+            consistency</strong> — correct category, valid trigger, only declared systems — exactly what a
+            small model must <em>learn</em>.</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- StratCoder -->
+    <article class="proj reveal">
+      <div class="proj-top">
+        <div class="proj-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+        <div>
+          <div class="proj-tag">Project 02 · Code-gen + sandbox</div>
+          <div class="proj-h">StratCoder-LLM</div>
+        </div>
+      </div>
+      <p class="proj-desc">A QLoRA fine-tune of <strong>Qwen2.5-Coder-1.5B</strong> that generates
+        <strong>validated</strong> trading-strategy code, executed inside a hardened sandbox
+        (<code>ast.parse</code> → import allow-list → structure check → sandboxed unit tests). Never trades
+        real money.</p>
+      <div class="chips"><span class="chip">Qwen2.5-Coder-1.5B</span><span class="chip">QLoRA</span><span class="chip">AST + import allow-list</span><span class="chip">subprocess sandbox</span><span class="chip">FastAPI</span></div>
+      <div class="proj-grid">
+        <div>
+          <div class="mini-h">Base → fine-tuned · 54-example test</div>
+          <div class="bars">
+            <div class="legend"><span><span class="sw" style="background:var(--slate)"></span>base</span><span><span class="sw" style="background:var(--accent)"></span>fine-tuned</span></div>
+            <div class="bar"><div class="bar-l">unit_tests_pass</div><div class="tracks"><div class="track"><div class="fill base" data-w="0"></div></div><div class="track"><div class="fill ft" data-w="93"></div></div></div><div class="bar-v"><span class="b">0.00</span> <span class="f">0.93</span><br><span class="d up">+0.93</span></div></div>
+            <div class="bar"><div class="bar-l">imports_ok</div><div class="tracks"><div class="track"><div class="fill base" data-w="67"></div></div><div class="track"><div class="fill ft" data-w="100"></div></div></div><div class="bar-v"><span class="b">0.67</span> <span class="f">1.00</span><br><span class="d up">+0.33</span></div></div>
+            <div class="bar"><div class="bar-l">structure_pass</div><div class="tracks"><div class="track"><div class="fill base" data-w="59"></div></div><div class="track"><div class="fill ft" data-w="100"></div></div></div><div class="bar-v"><span class="b">0.59</span> <span class="f">1.00</span><br><span class="d up">+0.41</span></div></div>
+            <div class="bar"><div class="bar-l">risk_logic</div><div class="tracks"><div class="track"><div class="fill base" data-w="59"></div></div><div class="track"><div class="fill ft" data-w="100"></div></div></div><div class="bar-v"><span class="b">0.59</span> <span class="f">1.00</span><br><span class="d up">+0.41</span></div></div>
+            <div class="bar"><div class="bar-l">syntax_pass</div><div class="tracks"><div class="track"><div class="fill base" data-w="93"></div></div><div class="track"><div class="fill ft" data-w="100"></div></div></div><div class="bar-v"><span class="b">0.93</span> <span class="f">1.00</span><br><span class="d up">+0.07</span></div></div>
+          </div>
+        </div>
+        <div class="arch">
+          <div class="mini-h">The sandbox (the differentiator)</div>
+          <p>Only code that clears a <strong>static import allow-list</strong> is ever executed — in an
+            isolated subprocess with a hard timeout, reduced builtins, a guarded importer and a
+            <code>meta_path</code> blocker. A <code>str.format</code> dunder-walk escape was found and closed.</p>
+          <div class="note warn"><strong>Honest boundary:</strong> a pure-Python sandbox isn't a hard wall —
+            the real boundary is refusing to execute dangerous code at all (os/socket/subprocess/open denied
+            statically), plus subprocess + timeout. Documented with a containerize-the-child fix path.</div>
+          <p style="margin-top:.6rem">Fine-tuned output is also tighter: latency <strong>11.7 s → 5.5 s</strong>.</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- DocuQuery -->
+    <article class="proj reveal">
+      <div class="proj-top">
+        <div class="proj-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 1 2-2h12"/></svg></div>
+        <div>
+          <div class="proj-tag">Project 03 · Full-stack RAG</div>
+          <div class="proj-h">DocuQuery-Gemini</div>
+        </div>
+      </div>
+      <p class="proj-desc">Upload documents, ask questions, get answers grounded in retrieved chunks
+        <strong>with citations (document + page)</strong> — plus a retrieval-evaluation dashboard. Citations
+        are built from the actual retrieved chunk rows, so an answer's sources are provably the chunks used.</p>
+      <div class="chips"><span class="chip">Next.js + TS + Tailwind</span><span class="chip">FastAPI</span><span class="chip">Postgres + pgvector</span><span class="chip">Gemini / local</span></div>
+      <div class="proj-grid">
+        <div>
+          <div class="mini-h">Retrieval evaluation · labeled set</div>
+          <div class="tiles five">
+            <div class="tile"><div class="tl">recall@5</div><div class="tv">1.00</div><div class="td">top-k</div></div>
+            <div class="tile"><div class="tl">MRR</div><div class="tv">0.95</div><div class="td">rank</div></div>
+            <div class="tile"><div class="tl">citation</div><div class="tv">1.00</div><div class="td">doc+page</div></div>
+            <div class="tile"><div class="tl">faithful</div><div class="tv">1.00</div><div class="td">grounded</div></div>
+            <div class="tile"><div class="tl">abstain</div><div class="tv">✓</div><div class="td">IDK path</div></div>
+          </div>
+          <div class="note">Measured on questions tagged with their expected document + page, using local
+            MiniLM embeddings. An LLM-judge faithfulness path activates with a Gemini key.</div>
+        </div>
+        <div class="arch">
+          <div class="mini-h">Architecture &amp; security</div>
+          <p><strong>Pipeline:</strong> ingest (PDF/MD/TXT, page-tagged chunks) → embed → pgvector → top-k
+            cosine over the user's chunks → grounded answer + citations → abstain when confidence is low.</p>
+          <p style="margin-top:.6rem"><strong>Audited (/cso):</strong> IDOR (row-level user scoping, verified
+            against the live DB), malicious uploads, prompt injection (instruction boundary), and key leakage
+            (Gemini key server-side only).</p>
+        </div>
+      </div>
+    </article>
+
+    <!-- AdaptBench teaser card links to benchmark section -->
+    <article class="proj reveal">
+      <div class="proj-top">
+        <div class="proj-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M22 20H2"/></svg></div>
+        <div>
+          <div class="proj-tag">Project 04 · Research benchmark</div>
+          <div class="proj-h">AdaptBench-LLM</div>
+        </div>
+      </div>
+      <p class="proj-desc">A fair 2×2 — base vs RAG vs fine-tuned vs hybrid — on one domain and one base
+        model, reusing WorkflowLM's data/validator/adapter and DocuQuery's retrieval. The finding is below
+        in <a href="#benchmark">the benchmark</a>.</p>
+      <div class="chips"><span class="chip">fair 2×2 design</span><span class="chip">shared scorer</span><span class="chip">leakage-guarded</span><span class="chip">deterministic + cached</span><span class="chip">reuses #1 + #3</span></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============================== BENCHMARK ============================== -->
+<section class="section" id="benchmark">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">02</span><h2>The benchmark</h2><span class="sec-rule"></span></div>
+    <p class="sec-sub reveal">When does fine-tuning beat RAG, when does RAG beat fine-tuning, and when does
+      the hybrid win? Four systems on <strong>Qwen2.5-1.5B-Instruct</strong>, identical inputs, one scorer.
+      Bar fill ∝ score (hallucination inverted); <span style="color:#cfe0ff">best per column highlighted</span>.</p>
+    <div class="matrix-wrap reveal">
+      <table class="matrix">
+        <thead><tr><th class="sys">system</th><th>schema_pass</th><th>category</th><th>trigger</th><th>system_f1</th><th>step</th><th>hallu ↓</th><th>latency</th></tr></thead>
+        <tbody>
+          <tr><td class="sys">base</td>
+            <td><div class="cellfill" style="width:78%"></div><span>0.78</span></td>
+            <td><div class="cellfill" style="width:76%"></div><span>0.76</span></td>
+            <td><div class="cellfill" style="width:1%"></div><span>0.01</span></td>
+            <td><div class="cellfill" style="width:30%"></div><span>0.30</span></td>
+            <td><div class="cellfill" style="width:44%"></div><span>0.44</span></td>
+            <td><div class="cellfill" style="width:65%"></div><span>0.35</span></td>
+            <td><span>7.2s</span></td></tr>
+          <tr><td class="sys">rag</td>
+            <td class="best"><div class="cellfill" style="width:97%"></div><span>0.97</span></td>
+            <td><div class="cellfill" style="width:99%"></div><span>0.99</span></td>
+            <td><div class="cellfill" style="width:39%"></div><span>0.39</span></td>
+            <td><div class="cellfill" style="width:45%"></div><span>0.45</span></td>
+            <td class="best"><div class="cellfill" style="width:59%"></div><span>0.59</span></td>
+            <td><div class="cellfill" style="width:93%"></div><span>0.07</span></td>
+            <td><span>6.1s</span></td></tr>
+          <tr><td class="sys">finetuned</td>
+            <td><div class="cellfill" style="width:93%"></div><span>0.93</span></td>
+            <td class="best"><div class="cellfill" style="width:100%"></div><span>1.00</span></td>
+            <td class="best"><div class="cellfill" style="width:42%"></div><span>0.42</span></td>
+            <td class="best"><div class="cellfill" style="width:46%"></div><span>0.46</span></td>
+            <td class="best"><div class="cellfill" style="width:59%"></div><span>0.59</span></td>
+            <td><div class="cellfill" style="width:93%"></div><span>0.07</span></td>
+            <td class="best"><span>4.9s</span></td></tr>
+          <tr><td class="sys">finetuned_rag</td>
+            <td class="best"><div class="cellfill" style="width:97%"></div><span>0.97</span></td>
+            <td class="best"><div class="cellfill" style="width:100%"></div><span>1.00</span></td>
+            <td class="best"><div class="cellfill" style="width:42%"></div><span>0.42</span></td>
+            <td><div class="cellfill" style="width:44%"></div><span>0.44</span></td>
+            <td><div class="cellfill" style="width:59%"></div><span>0.59</span></td>
+            <td class="best"><div class="cellfill" style="width:99%"></div><span>0.01</span></td>
+            <td><span>7.0s</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note reveal"><strong>The finding:</strong> both adaptation methods close ~the same gap from
+      base — fine-tuning <strong>+0.201</strong> composite, few-shot RAG <strong>+0.200</strong>. For this
+      structured task at 1.5B, in-context examples are about as effective as a weight update — and the
+      fairness controls (RAG retrieves only from the <em>train</em> split, the same knowledge the fine-tune
+      saw) are what make that comparison trustworthy. Fine-tuning is also the fastest (4.9 s) and best on
+      field-level metrics; the hybrid wins overall only by a hair (+0.011), almost entirely from the lowest
+      hallucination (0.01). Verified deterministic: a cache-cleared rerun reproduced the numbers byte-identically.</div>
+  </div>
+</section>
+
+<!-- ============================== METHODOLOGY ============================== -->
+<section class="section" id="method">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="sec-num">03</span><h2>Methodology</h2><span class="sec-rule"></span></div>
+    <p class="sec-sub reveal">How the models were trained and why the numbers are trustworthy.</p>
+    <div class="method-grid">
+      <div class="mcard reveal">
+        <h3>How the LLMs were trained</h3>
+        <ul>
+          <li><strong>Base models:</strong> Qwen2.5-1.5B-Instruct &amp; Qwen2.5-Coder-1.5B-Instruct.</li>
+          <li><strong>Quantization:</strong> 4-bit NF4, double quant, bf16 compute.</li>
+          <li><strong>LoRA:</strong> r=16, α=32, dropout 0.05, on q/k/v/o + gate/up/down.</li>
+          <li><strong>Optimization:</strong> 3 epochs, lr 2e-4 cosine, paged 8-bit AdamW, completion-only loss, fixed seed.</li>
+          <li><strong>Hardware:</strong> a single RTX 4090 (24 GB) — every run fits with room to spare.</li>
+        </ul>
+      </div>
+      <div class="mcard reveal">
+        <h3>Why the numbers hold</h3>
+        <ul>
+          <li>Pinned dependencies, fixed seeds, versioned configs per run.</li>
+          <li>The validator/scorer is a <strong>single source of truth</strong> across data, eval, and serving.</li>
+          <li>Self-validating datasets — bad examples rejected before training.</li>
+          <li>Strict train/val/test discipline; metrics computed identically across compared systems.</li>
+          <li>Results reported honestly (CSV + markdown), including failures and caveats.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mini-h reveal" style="margin-top:1.4rem">Verified stack</div>
+    <div class="chips reveal"><span class="chip">torch 2.6 + CUDA 12.4</span><span class="chip">transformers 4.46.3</span><span class="chip">trl 0.12.2</span><span class="chip">peft 0.14.0</span><span class="chip">bitsandbytes 0.49.2</span><span class="chip">sentence-transformers</span><span class="chip">FastAPI</span><span class="chip">Next.js</span><span class="chip">pgvector</span></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="fl"><strong style="color:var(--muted)">Anish Guntreddi</strong><br>
+      LLM Engineering Portfolio<br>Every number from a real, committed result.</div>
+    <div class="fr">
+      <a href="https://github.com/Anish-Guntreddi/llm-engineering-portfolio" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="#top">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
+<noscript><style>.reveal{opacity:1;transform:none}.fill{width:var(--w)}</style></noscript>
+<script src="main.js"></script>
+</body>
+</html>
