@@ -5,6 +5,11 @@ rigorous evaluation. Built solo, portfolio-grade, fully reproducible on a single
 (developed on an RTX 4090, 24 GB). Every project ships with a real before/after or head-to-head
 evaluation — no hand-wavy claims.
 
+### 🌐 **Live showcase site → https://anish-guntreddi.github.io/llm-engineering-portfolio/**
+
+A hand-built static site (GitHub Pages) with the deep project write-ups, architecture, and all the
+metrics below — see [`docs/`](./docs). (There's also an interactive Streamlit dashboard further down.)
+
 | # | Project | Headline result | Stack |
 |---|---------|-----------------|-------|
 | 1 | [**WorkflowLM**](./workflowlm) | QLoRA fine-tune **beats base on all 7 metrics**: schema_pass 0.78→0.93, trigger 0.01→0.42, hallucination 0.35→0.07 | Qwen2.5-1.5B-Instruct, PEFT/TRL, Pydantic, FastAPI |
